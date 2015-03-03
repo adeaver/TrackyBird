@@ -1,5 +1,3 @@
-""" Experiment with face detection and image filtering using OpenCV """
-
 import cv2
 import numpy as np
 cap = cv2.VideoCapture(0)
@@ -24,11 +22,8 @@ while(True):
         lower = np.array(lower, dtype="uint8")
         upper = np.array(upper, dtype="uint8")
         mask = cv2.inRange(diff_np, lower, upper)
-        diff_np = cv2.bitwise_and(frame,frame, mask=mask)
         
     mask = cv2.pyrDown(mask)
-    # Display the resulting frame
-    #cv2.imshow('frame',np.hstack([diff,diff_np]))
     white_x = []
     white_y = []
     for y in xrange( mask.shape[0] ):
@@ -37,13 +32,17 @@ while(True):
                 white_x.append(x)
                 white_y.append(y)
 
-    cv2.imshow('mask',mask)
     avg_y = sum(white_y) / float(len(white_y)+0.1)
-    print avg_y
-    
-    #cv2.imshow('orig', cv2.sort(frame, CV_SORT_DESCENDING) )
-    #print cv2.mean( cv2.pow(mask,2) )
+    avg_x = sum(white_x) / float(len(white_x)+0.1)
 
+    color = cv2.mean(frame)[:3]
+    if avg_x != 0 and avg_y != 0:  
+        cv2.circle(mask, (int(avg_x), int(avg_y)), 10, color, -1) 
+
+    cv2.imshow('frame', frame)
+    cv2.imshow('mask', mask)
+
+    
     frame_old = frame
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
