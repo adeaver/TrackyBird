@@ -18,6 +18,9 @@ class Movement_Track:
         self.miny = height/2.0 # minimum y value reached
         self.avg = height/2.0 # Initial average value
 
+        self.highy = []
+        self.lowy = []
+
     def Get_Color(self):
         ret, frame = self.cap.read()
         self.color = cv2.mean(frame)[:3]
@@ -45,7 +48,6 @@ class Movement_Track:
 
     def Get_Move(self):
         ret, frame = self.cap.read()
-        #frame = cv2.flip(frame, 1)
 
         if self.starter == 0:
             self.frame_old = frame
@@ -69,14 +71,10 @@ class Movement_Track:
                     white_y.append(y)
 
         avg_y = sum(white_y) / float(len(white_y)+0.1)
-        #avg_x = sum(white_x) / float(len(white_x)+0.1)
         
         self.frame_old = frame
     
         return avg_y
-        #return (avg_x, avg_y)
-        #if cv2.waitKey(1) & 0xFF == ord('q'):
-            #break
 
     def destroy(self):
         cap.release()
