@@ -3,6 +3,10 @@ import Bird, PipeObstacle
 
 pygame.init()
 pygame.font.init()
+pygame.mixer.init()
+
+pygame.mixer.music.load("boat.wav")
+#pygame.mixer.music.play(-1)
 
 font = pygame.font.SysFont("ubuntumono",100)
 
@@ -65,6 +69,7 @@ while True:
     if(lost):
         msg = font.render('You Lost!', 0, pygame.Color(000,000,000))
         background.blit(msg, (0,48))
+        lost = False
 
     screen.blit(background, (0, 0))
     pygame.display.update()
