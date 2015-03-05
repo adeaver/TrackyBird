@@ -9,11 +9,13 @@ class Bird():
     def __init__(self,screenx, screeny):
         """ Initialize a Tracky bird at the specified position
             pos_x, pos_y """
+        self.image = pygame.image.load("./images/bird.gif")
+        self.image = pygame.transform.scale(self.image, (50, 50))
         self.pos_x = screenx/2
         self.pos_y = screeny/2
         self.death_height = int(screeny * (7.0/8.0))
-        self.width = 30 # replace with width of sprite
-        self.height = 30 # replace with height of sprite
+        self.width = 50 # replace with width of sprite
+        self.height = 50 # replace with height of sprite
         self.v_x = 0
         self.v_y = 0
         self.jumping = 0
@@ -26,7 +28,7 @@ class Bird():
         return [DrawableSurface(self.image, self.image.get_rect().move(self.pos_x, self.pos_y))]
 
     def draw(self, surface):
-        pygame.draw.circle(surface, pygame.Color(0,100,0), (int(self.pos_x), int(self.pos_y)), 30)
+        surface.blit(self.image, (self.pos_x, self.pos_y))
 
     def update(self, delta_t):
         """ update the flappy bird's position """
