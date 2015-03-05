@@ -33,7 +33,7 @@ class Bird():
     def update(self, delta_t):
         """ update the flappy bird's position """
         if self.jumping > 5:
-            self.v_y = -2000 * cos((self.jumping/jumping_steps)*2*pi)
+            self.v_y = -200 * cos((self.jumping/jumping_steps)*2*pi)
             self.jumping -=1
         elif self.jumping > 0:
             self.v_y += 20
@@ -63,5 +63,5 @@ class Bird():
     def flap(self):
         """ cause the bird to accelerate upwards (negative y direction) """
         # self.v_y = -200
-        if(self.pos_y > 0):
+        if(self.pos_y > 40):
             self.jumping = jumping_steps

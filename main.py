@@ -1,5 +1,8 @@
 import sys, pygame, time
 import Bird, PipeObstacle
+from movement_detect import *
+
+tracker = Movement_Track()
 
 pygame.init()
 pygame.font.init()
@@ -35,17 +38,30 @@ pipe2 = PipeObstacle.PipeObstacle(screenx, screeny)
 bird = Bird.Bird(screenx, screeny)
 
 lost = False
+track = True
 
 while True:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                bird.flap()
-                print "Flap!"
+            # if event.key == pygame.K_SPACE:
+            #     bird.flap()
+            #     print "Flap!"
             if event.key == pygame.K_q:
                 sys.exit()
         elif event.type == pygame.QUIT:
             sys.exit()
+
+    if tracker.Movement():
+        bird.flap()
+        track = False
+        counter = -1
+        print "Flap!"
+
+    if(track == False):
+        counter += 1
+        if(counter == 10):
+            track = True
+
 
     delta_t = time.time() - update
     update = time.time()
