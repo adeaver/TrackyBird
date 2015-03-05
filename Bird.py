@@ -63,4 +63,5 @@ class Bird():
     def flap(self):
         """ cause the bird to accelerate upwards (negative y direction) """
         # self.v_y = -200
-        self.jumping = jumping_steps
+        if(self.pos_y > 0):
+            self.jumping = jumping_steps
