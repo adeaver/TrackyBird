@@ -33,36 +33,38 @@ bird = Bird.Bird(screenx, screeny)
 lost = False
 
 while True:
-	for event in pygame.event.get():
-		if event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_SPACE:
-				bird.flap()
-				print "Flap!"
-		elif event.type == pygame.QUIT:
-			sys.exit()
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                bird.flap()
+                print "Flap!"
+            if event.key == pygame.K_q:
+                sys.exit()
+        elif event.type == pygame.QUIT:
+            sys.exit()
 
-	delta_t = time.time() - update
-	update = time.time()
+    delta_t = time.time() - update
+    update = time.time()
 
-	background.fill((0, 191, 255))
-	background.blit(grass, (0, grassy))
-	screen.blit(background, (0, 0))
+    background.fill((0, 191, 255))
+    background.blit(grass, (0, grassy))
+    screen.blit(background, (0, 0))
 
-	rects = pipe.rect() + pipe2.rect()
+    rects = pipe.rect() + pipe2.rect()
 
-	pipe.draw(background)
-	pipe.update(delta_t)
-	pipe2.draw(background)
-	pipe2.update(delta_t)
-	bird.draw(background)
-	bird.update(delta_t)
+    pipe.draw(background)
+    pipe.update(delta_t)
+    pipe2.draw(background)
+    pipe2.update(delta_t)
+    bird.draw(background)
+    bird.update(delta_t)
 
-	if(bird.check_loss() or bird.collision(rects)):
-		lost = True
+    if(bird.check_loss() or bird.collision(rects)):
+        lost = True
 
-	if(lost):
-		msg = font.render('You Lost!', 0, pygame.Color(000,000,000))
-		background.blit(msg, (0,48))
+    if(lost):
+        msg = font.render('You Lost!', 0, pygame.Color(000,000,000))
+        background.blit(msg, (0,48))
 
-	screen.blit(background, (0, 0))
-	pygame.display.update()
+    screen.blit(background, (0, 0))
+    pygame.display.update()
