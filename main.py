@@ -5,7 +5,7 @@ pygame.init()
 pygame.font.init()
 pygame.mixer.init()
 
-pygame.mixer.music.load("boat.wav")
+#pygame.mixer.music.load("boat.wav")
 #pygame.mixer.music.play(-1)
 
 font = pygame.font.SysFont("ubuntumono",100)
