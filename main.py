@@ -1,5 +1,5 @@
 import sys, pygame, time
-import Bird, PipeObstacle
+import classes
 from movement_detect import *
 
 tracker = Movement_Track()
