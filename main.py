@@ -43,9 +43,9 @@ track = True
 while True:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            # if event.key == pygame.K_SPACE:
-            #     bird.flap()
-            #     print "Flap!"
+            if event.key == pygame.K_SPACE:
+                bird.flap()
+                print "Flap!"
             if event.key == pygame.K_q:
                 sys.exit()
         elif event.type == pygame.QUIT:
