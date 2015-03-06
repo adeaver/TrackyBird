@@ -18,7 +18,8 @@ class Bird():
         self.height = 50 # replace with height of sprite
         self.v_x = 0
         self.v_y = 0
-        self.jumping = 0
+        self.accel = 9.8
+        self.jumper = 0
         # TODO: don't depend on relative path
         #self.image = pygame.image.load('images/bird_wing_up.png')
         #self.image.set_colorkey((255,255,255))
@@ -32,15 +33,12 @@ class Bird():
 
     def update(self, delta_t):
         """ update the flappy bird's position """
-        if self.jumping > 5:
-            self.v_y = -200 * cos((self.jumping/jumping_steps)*2*pi)
-            self.jumping -=1
-        elif self.jumping > 0:
-            self.v_y += 20
-            self.jumping -= 1
-        else:
-            # self.v_y = delta_t*400 # this is gravity in pixels / s^2
-            self.v_y = 200
+        accel = 30
+        self.v_y += accel
+        if self.jumper:
+            self.v_y = -70*self.jumper
+            self.jumper -= 1
+
 
         self.pos_x += self.v_x*delta_t
         self.pos_y += self.v_y*delta_t
@@ -62,6 +60,5 @@ class Bird():
 
     def flap(self):
         """ cause the bird to accelerate upwards (negative y direction) """
-        # self.v_y = -200
         if(self.pos_y > 40):
-            self.jumping = jumping_steps
+            self.jumper = 10

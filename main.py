@@ -43,8 +43,13 @@ track = True
 while True:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
+<<<<<<< HEAD
             # if event.key == pygame.K_SPACE:
             #     bird.flap()
+=======
+            if event.key == pygame.K_SPACE:
+                bird.flap()
+>>>>>>> 4f4b6f5975705c8e5ac43e8ab8d4353dd9f261b6
             if event.key == pygame.K_q:
                 sys.exit()
         elif event.type == pygame.QUIT:
