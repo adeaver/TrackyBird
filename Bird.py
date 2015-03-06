@@ -36,7 +36,7 @@ class Bird():
         accel = 30
         self.v_y += accel
         if self.jumper:
-            self.v_y = -50*self.jumper
+            self.v_y = -70*self.jumper
             self.jumper -= 1
 
 
