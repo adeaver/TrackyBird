@@ -55,7 +55,6 @@ while True:
         bird.flap()
         track = False
         counter = -1
-        print "Flap!"
 
     if(track == False):
         counter += 1
