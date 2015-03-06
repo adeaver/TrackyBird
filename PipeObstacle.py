@@ -11,7 +11,6 @@ class PipeObstacle():
         self.screenx = screenx
         self.screeny = screeny
         self.posx = screenx + (((self.screenx)/2+60) * (self.count-1))
-        print self.posx
         self.width = 120
         self.posy = random.randrange(screeny-300, int(screeny * (7.0/8.0)))
         self.height = screeny-self.posy
