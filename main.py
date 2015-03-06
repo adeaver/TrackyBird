@@ -33,9 +33,9 @@ background.blit(grass, (0, grassy))
 screen.blit(background, (0, 0))
 counter = 0
 update = time.time()
-pipe = PipeObstacle.PipeObstacle(screenx, screeny)
-pipe2 = PipeObstacle.PipeObstacle(screenx, screeny)
-bird = Bird.Bird(screenx, screeny)
+pipe = classes.PipeObstacle(screenx, screeny)
+pipe2 = classes.PipeObstacle(screenx, screeny)
+bird = classes.Bird(screenx, screeny)
 
 lost = False
 track = True

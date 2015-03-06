@@ -1,6 +1,6 @@
 import pygame
+import random
 from math import cos, pi
-import Rectangle
 
 jumping_steps = 20
 
@@ -58,7 +58,7 @@ class Bird():
         return False
 
     def get_rect(self):
-        return Rectangle.Rectangle(self.pos_x, self.pos_y, self.width, self.height)
+        return Rectangle(self.pos_x, self.pos_y, self.width, self.height)
 
     def flap(self):
         """ cause the bird to accelerate upwards (negative y direction) """
@@ -104,7 +104,7 @@ class PipeObstacle():
         print self.posx
 
     def rect(self):
-        return [Rectangle.Rectangle(self.posx, self.posy, self.width, self.height), Rectangle.Rectangle(self.posx, 0, self.width, self.posy-200)]
+        return [Rectangle(self.posx, self.posy, self.width, self.height), Rectangle(self.posx, 0, self.width, self.posy-200)]
 
 class Rectangle():
 
