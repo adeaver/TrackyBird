@@ -11,6 +11,8 @@ pygame.mixer.init()
 #pygame.mixer.music.load("boat.wav")
 #pygame.mixer.music.play(-1)
 
+score = 0
+
 font = pygame.font.SysFont("ubuntumono",100)
 
 screen = pygame.display.set_mode([860, 640])
@@ -39,6 +41,8 @@ bird = Bird.Bird(screenx, screeny)
 
 lost = False
 track = True
+
+distance = 0;
 
 while True:
     for event in pygame.event.get():
@@ -80,9 +84,18 @@ while True:
     if(bird.check_loss() or bird.collision(rects)):
         lost = True
 
+    distance += delta_t * 200
+
+    if(distance > screenx/2 + 60):
+        score+=1
+        distance = 0
+
+    score_msg = font.render(str(score), 0, pygame.Color(000,000,000))
+    background.blit(score_msg, (screenx/2, 48))
+
     if(lost):
         msg = font.render('You Lost!', 0, pygame.Color(000,000,000))
-        background.blit(msg, (0,48))
+        background.blit(msg, (screenx/3,screeny-100))
         lost = False
 
     screen.blit(background, (0, 0))

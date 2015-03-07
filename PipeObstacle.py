@@ -16,7 +16,7 @@ class PipeObstacle():
         self.height = screeny-self.posy
         self.image = pygame.image.load('./images/pipe_body.png')
         self.image = pygame.transform.scale(self.image, (self.width, self.height))
-        self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-300))
+        self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-250))
 
     def draw(self, screen):
         # pygame.draw.rect(screen, pygame.Color(255,0,0), (self.posx, self.posy, self.width, self.height))
@@ -32,10 +32,10 @@ class PipeObstacle():
             self.posy = random.randrange(self.screeny-300, int(self.screeny * (7.0/8.0)))
             self.height = self.screeny-self.posy
             self.image = pygame.transform.scale(self.image, (self.width, self.height))
-            self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-300))
+            self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-250))
 
     def get_x(self):
         print self.posx
 
     def rect(self):
-        return [Rectangle.Rectangle(self.posx, self.posy, self.width, self.height), Rectangle.Rectangle(self.posx, 0, self.width, self.posy-300)]
+        return [Rectangle.Rectangle(self.posx, self.posy, self.width, self.height), Rectangle.Rectangle(self.posx, 0, self.width, self.posy-250)]
