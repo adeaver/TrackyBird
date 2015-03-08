@@ -14,18 +14,16 @@ class Bird():
         self.pos_x = screenx/2
         self.pos_y = screeny/2
         self.death_height = int(screeny * (7.0/8.0))
-        self.width = 50 # replace with width of sprite
+        self.width = 50  # replace with width of sprite
         self.height = 50 # replace with height of sprite
         self.v_x = 0
         self.v_y = 0
         self.jumping = 0
-        # TODO: don't depend on relative path
-        #self.image = pygame.image.load('images/bird_wing_up.png')
-        #self.image.set_colorkey((255,255,255))
 
     def get_drawables(self):
         """ get the drawables that makeup the Flappy Bird Player """
-        return [DrawableSurface(self.image, self.image.get_rect().move(self.pos_x, self.pos_y))]
+        return [DrawableSurface(self.image,
+                self.image.get_rect().move(self.pos_x, self.pos_y))]
 
     def draw(self, surface):
         surface.blit(self.image, (self.pos_x, self.pos_y))
@@ -33,7 +31,7 @@ class Bird():
     def reset(self, screenx, screeny):
         self.pos_x = screenx/2
         self.pos_y = screeny/2
-        self.width = 50 # replace with width of sprite
+        self.width = 50  # replace with width of sprite
         self.height = 50 # replace with height of sprite
         self.v_x = 0
         self.v_y = 0
@@ -63,7 +61,9 @@ class Bird():
         for rect in rectangles:
             if rect.contains(bird_rect):
                 return True
-            elif (rect.get_left() <= self.pos_x and rect.get_right() >= self.pos_x and self.pos_y <= 0):
+            elif (rect.left <= self.pos_x \
+                  and rect.right >= self.pos_x \
+                  and self.pos_y <= 0):
                 return True
         return False
 
@@ -91,12 +91,12 @@ class PipeObstacle():
         self.posy = random.randrange(screeny-300, int(screeny * (7.0/8.0)))
         self.height = screeny-self.posy
         self.image = pygame.image.load('./images/pipe_body.png')
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
-        self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-self.gap))
+        self.image = pygame.transform.scale(self.image,
+                          (self.width, self.height))
+        self.reflection = pygame.transform.scale(self.image,
+                          (self.width, self.posy-self.gap))
 
     def draw(self, screen):
-        # pygame.draw.rect(screen, pygame.Color(255,0,0), (self.posx, self.posy, self.width, self.height))
-        # pygame.draw.rect(screen, pygame.Color(255, 0, 0), (self.posx, 0, self.width, self.posy-200))
         screen.blit(self.image, (self.posx, self.posy))
         screen.blit(self.reflection, (self.posx, 0))
 
@@ -118,11 +118,9 @@ class PipeObstacle():
             self.image = pygame.transform.scale(self.image, (self.width, self.height))
             self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-self.gap))
 
-    def get_x(self):
-        print self.posx
-
     def rect(self):
-        return [Rectangle(self.posx, self.posy, self.width, self.height), Rectangle(self.posx, 0, self.width, self.posy-200)]
+        return [Rectangle(self.posx, self.posy, self.width, self.height),
+                Rectangle(self.posx, 0, self.width, self.posy-200)]
 
 class Rectangle():
 
@@ -138,16 +136,3 @@ class Rectangle():
                 return True
 
         return False
-
-    def get_left(self):
-        return self.left
-
-    def get_right(self):
-        return self.left + self.width
-
-    def get_top(self):
-        return self.top
-
-    def get_bottom(self):
-        return self.top + self.height
-
