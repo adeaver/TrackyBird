@@ -123,10 +123,12 @@ class Rectangle():
         self.left = left
         self.width = width
         self.height = height
+        self.right = left+width
+        self.bottom = top + height
 
     def contains(self, rect):
-        if(rect.get_right() >= self.left and rect.get_left() <= self.left+self.width):
-            if(rect.get_top() <= self.top+self.height and rect.get_bottom() >= self.top):
+        if(rect.right >= self.left and rect.left <= self.left+self.width):
+            if(rect.top <= self.top+self.height and rect.bottom >= self.top):
                 return True
 
         return False
