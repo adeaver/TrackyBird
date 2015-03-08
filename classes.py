@@ -22,7 +22,8 @@ class Bird():
 
     def get_drawables(self):
         """ get the drawables that makeup the Flappy Bird Player """
-        return [DrawableSurface(self.image, self.image.get_rect().move(self.pos_x, self.pos_y))]
+        return [DrawableSurface(self.image,
+                self.image.get_rect().move(self.pos_x, self.pos_y))]
 
     def draw(self, surface):
         surface.blit(self.image, (self.pos_x, self.pos_y))
@@ -60,7 +61,9 @@ class Bird():
         for rect in rectangles:
             if rect.contains(bird_rect):
                 return True
-            elif (rect.get_left() <= self.pos_x and rect.get_right() >= self.pos_x and self.pos_y <= 0):
+            elif (rect.get_left() <= self.pos_x \
+                  and rect.get_right() >= self.pos_x \
+                  and self.pos_y <= 0):
                 return True
         return False
 
@@ -88,12 +91,12 @@ class PipeObstacle():
         self.posy = random.randrange(screeny-300, int(screeny * (7.0/8.0)))
         self.height = screeny-self.posy
         self.image = pygame.image.load('./images/pipe_body.png')
-        self.image = pygame.transform.scale(self.image, (self.width, self.height))
-        self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-self.gap))
+        self.image = pygame.transform.scale(self.image,
+                          (self.width, self.height))
+        self.reflection = pygame.transform.scale(self.image,
+                          (self.width, self.posy-self.gap))
 
     def draw(self, screen):
-        # pygame.draw.rect(screen, pygame.Color(255,0,0), (self.posx, self.posy, self.width, self.height))
-        # pygame.draw.rect(screen, pygame.Color(255, 0, 0), (self.posx, 0, self.width, self.posy-200))
         screen.blit(self.image, (self.posx, self.posy))
         screen.blit(self.reflection, (self.posx, 0))
 
@@ -119,7 +122,8 @@ class PipeObstacle():
         print self.posx
 
     def rect(self):
-        return [Rectangle(self.posx, self.posy, self.width, self.height), Rectangle(self.posx, 0, self.width, self.posy-200)]
+        return [Rectangle(self.posx, self.posy, self.width, self.height),
+                Rectangle(self.posx, 0, self.width, self.posy-200)]
 
 class Rectangle():
 
