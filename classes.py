@@ -61,8 +61,8 @@ class Bird():
         for rect in rectangles:
             if rect.contains(bird_rect):
                 return True
-            elif (rect.get_left() <= self.pos_x \
-                  and rect.get_right() >= self.pos_x \
+            elif (rect.left <= self.pos_x \
+                  and rect.right >= self.pos_x \
                   and self.pos_y <= 0):
                 return True
         return False
@@ -118,9 +118,6 @@ class PipeObstacle():
             self.image = pygame.transform.scale(self.image, (self.width, self.height))
             self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-self.gap))
 
-    def get_x(self):
-        print self.posx
-
     def rect(self):
         return [Rectangle(self.posx, self.posy, self.width, self.height),
                 Rectangle(self.posx, 0, self.width, self.posy-200)]
@@ -139,16 +136,3 @@ class Rectangle():
                 return True
 
         return False
-
-    def get_left(self):
-        return self.left
-
-    def get_right(self):
-        return self.left + self.width
-
-    def get_top(self):
-        return self.top
-
-    def get_bottom(self):
-        return self.top + self.height
-
