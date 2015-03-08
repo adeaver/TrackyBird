@@ -78,8 +78,8 @@ while True:
     while lost != True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                # if event.key == pygame.K_SPACE:
-                #     bird.flap()
+                if event.key == pygame.K_SPACE:
+                     bird.flap()
                 if event.key == pygame.K_q:
                     sys.exit()
             elif event.type == pygame.QUIT:
@@ -89,7 +89,7 @@ while True:
             bird.flap()
             track = False
             counter = -1
-
+        #Prevents bird from flapping again for 10 frames after a flap
         if(track == False):
             counter += 1
             if(counter == 10):
@@ -131,7 +131,7 @@ while True:
         screen.blit(background, (0, 0))
         pygame.display.update()
 
-    while True:
+    while True: 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:

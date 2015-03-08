@@ -2,8 +2,6 @@ import pygame
 import random
 from math import cos, pi
 
-jumping_steps = 20
-
 class Bird():
     """ Represents the player in the game (the Tracky Bird) """
     def __init__(self,screenx, screeny):
@@ -42,15 +40,11 @@ class Bird():
 
     def update(self, delta_t):
         """ update the flappy bird's position """
-        if self.jumping > 5:
-            self.v_y = -200 * cos((self.jumping/jumping_steps)*2*pi)
-            self.jumping -=1
-        elif self.jumping > 0:
-            self.v_y += 20
-            self.jumping -= 1
+        if self.jumping:
+            self.v_y = -350
+            self.jumping = False            
         else:
-            # self.v_y = delta_t*400 # this is gravity in pixels / s^2
-            self.v_y = 200
+            self.v_y += 30 #falling acceleration
 
         self.pos_x += self.v_x*delta_t
         self.pos_y += self.v_y*delta_t
@@ -74,7 +68,7 @@ class Bird():
         """ cause the bird to accelerate upwards (negative y direction) """
         # self.v_y = -200
         if(self.pos_y > 40):
-            self.jumping = jumping_steps
+            self.jumping = True
 
 class PipeObstacle():
 
