@@ -13,7 +13,7 @@ pygame.mixer.init()
 
 score = 0
 
-font = pygame.font.SysFont("ubuntumono",100)
+font = pygame.font.Font("./fonts/04B_19__.TTF",100)
 
 screen = pygame.display.set_mode([860, 640])
 pygame.display.set_caption('TrackyBird')
@@ -40,63 +40,114 @@ pipe2 = PipeObstacle.PipeObstacle(screenx, screeny)
 bird = Bird.Bird(screenx, screeny)
 
 lost = False
+play = False
+exit = False
 track = True
 
 distance = 0;
 
-while True:
+title_image = pygame.image.load('./images/trackylogo.gif')
+by_image = pygame.image.load('./images/bylogo.gif')
+
+while play != True:
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
-            # if event.key == pygame.K_SPACE:
-            #     bird.flap()
-            if event.key == pygame.K_q:
-                sys.exit()
-        elif event.type == pygame.QUIT:
-            sys.exit()
-
-    if tracker.Movement():
-        bird.flap()
-        track = False
-        counter = -1
-
-    if(track == False):
-        counter += 1
-        if(counter == 10):
-            track = True
-
+            if event.key == pygame.K_SPACE:
+                play = True
+                pipe.reset()
+                pipe2.reset()
 
     delta_t = time.time() - update
     update = time.time()
 
     background.fill((0, 191, 255))
     background.blit(grass, (0, grassy))
-    screen.blit(background, (0, 0))
-
-    rects = pipe.rect() + pipe2.rect()
 
     pipe.draw(background)
     pipe.update(delta_t)
     pipe2.draw(background)
     pipe2.update(delta_t)
-    bird.draw(background)
-    bird.update(delta_t)
 
-    if(bird.check_loss() or bird.collision(rects)):
-        lost = True
-
-    distance += delta_t * 200
-
-    if(distance > screenx/2 + 60):
-        score+=1
-        distance = 0
-
-    score_msg = font.render(str(score), 0, pygame.Color(000,000,000))
-    background.blit(score_msg, (screenx/2, 48))
-
-    if(lost):
-        msg = font.render('You Lost!', 0, pygame.Color(000,000,000))
-        background.blit(msg, (screenx/3,screeny-100))
-        lost = False
+    background.blit(title_image, (screenx/2-201, 10))
+    background.blit(by_image, (screenx/2-342, screeny-100))
 
     screen.blit(background, (0, 0))
     pygame.display.update()
+
+while True:
+    while lost != True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                # if event.key == pygame.K_SPACE:
+                #     bird.flap()
+                if event.key == pygame.K_q:
+                    sys.exit()
+            elif event.type == pygame.QUIT:
+                sys.exit()
+
+        if tracker.Movement():
+            bird.flap()
+            track = False
+            counter = -1
+
+        if(track == False):
+            counter += 1
+            if(counter == 10):
+                track = True
+
+
+        delta_t = time.time() - update
+        update = time.time()
+
+        background.fill((0, 191, 255))
+        background.blit(grass, (0, grassy))
+        screen.blit(background, (0, 0))
+
+        rects = pipe.rect() + pipe2.rect()
+
+        pipe.draw(background)
+        pipe.update(delta_t)
+        pipe2.draw(background)
+        pipe2.update(delta_t)
+        bird.draw(background)
+        bird.update(delta_t)
+
+        if(bird.check_loss() or bird.collision(rects)):
+            lost = True
+
+        distance += delta_t * 200
+
+        if(distance > screenx/2 + 60):
+            score+=1
+            distance = 0
+
+        score_msg = font.render(str(score), 0, pygame.Color(000,000,000))
+        background.blit(score_msg, (screenx/2, 48))
+
+        if(lost):
+            msg = font.render('You Lost!', 0, pygame.Color(000,000,000))
+            background.blit(msg, (screenx/3,screeny-100))
+
+        screen.blit(background, (0, 0))
+        pygame.display.update()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    lost = False
+                    print "Restart Pressed"
+                    break
+                elif event.key == pygame.K_q:
+                    sys.exit()
+
+        if(lost == False):
+            break
+
+    if(lost == False):
+        pipe.reset()
+        pipe2.reset()
+        score = 0
+        distance = 0
+        bird.reset(screenx, screeny)
+        pygame.display.update()

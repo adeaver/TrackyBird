@@ -24,6 +24,14 @@ class PipeObstacle():
         screen.blit(self.image, (self.posx, self.posy))
         screen.blit(self.reflection, (self.posx, 0))
 
+    def reset(self):
+        self.posx = self.screenx + (((self.screenx)/2+60) * (self.count-1))
+        self.width = 120
+        self.posy = random.randrange(self.screeny-300, int(self.screeny * (7.0/8.0)))
+        self.height = self.screeny-self.posy
+        self.image = pygame.transform.scale(self.image, (self.width, self.height))
+        self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-250))
+
     def update(self, delta_t):
         self.posx -= (200 * delta_t)
 

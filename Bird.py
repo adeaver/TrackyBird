@@ -31,6 +31,16 @@ class Bird():
     def draw(self, surface):
         surface.blit(self.image, (self.pos_x, self.pos_y))
 
+    def reset(self, screenx, screeny):
+        self.pos_x = screenx/2
+        self.pos_y = screeny/2
+        self.width = 50 # replace with width of sprite
+        self.height = 50 # replace with height of sprite
+        self.v_x = 0
+        self.v_y = 0
+        self.accel = 9.8
+        self.jumper = 0
+
     def update(self, delta_t):
         """ update the flappy bird's position """
         accel = 30
