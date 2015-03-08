@@ -14,14 +14,11 @@ class Bird():
         self.pos_x = screenx/2
         self.pos_y = screeny/2
         self.death_height = int(screeny * (7.0/8.0))
-        self.width = 50 # replace with width of sprite
+        self.width = 50  # replace with width of sprite
         self.height = 50 # replace with height of sprite
         self.v_x = 0
         self.v_y = 0
         self.jumping = 0
-        # TODO: don't depend on relative path
-        #self.image = pygame.image.load('images/bird_wing_up.png')
-        #self.image.set_colorkey((255,255,255))
 
     def get_drawables(self):
         """ get the drawables that makeup the Flappy Bird Player """
@@ -33,7 +30,7 @@ class Bird():
     def reset(self, screenx, screeny):
         self.pos_x = screenx/2
         self.pos_y = screeny/2
-        self.width = 50 # replace with width of sprite
+        self.width = 50  # replace with width of sprite
         self.height = 50 # replace with height of sprite
         self.v_x = 0
         self.v_y = 0
