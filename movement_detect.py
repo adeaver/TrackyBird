@@ -14,7 +14,7 @@ class Movement_Track:
         frame = cv2.pyrDown(frame)
         self.height = frame.shape[0]
         self.width = frame.shape[1]
-        self.thresh = 50
+        self.thresh = 100
 
         self.maxy = self.height/2.0 # maximum y value reached
         self.miny = self.height/2.0 # minimum y value reached
