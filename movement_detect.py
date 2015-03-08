@@ -12,11 +12,16 @@ class Movement_Track:
 
         ret, frame = self.cap.read()
         frame = cv2.pyrDown(frame)
-        height = frame.shape[0]
+        self.height = frame.shape[0]
+        self.width = frame.shape[1]
+        self.thresh = 50
 
-        self.maxy = height/2.0 # maximum y value reached
-        self.miny = height/2.0 # minimum y value reached
-        self.avg = height/2.0 # Initial average value
+        self.maxy = self.height/2.0 # maximum y value reached
+        self.miny = self.height/2.0 # minimum y value reached
+        self.avg = self.height/2.0 # Initial average value
+
+        self.maxx = 0
+        self.minx = 0
 
         self.highy = []
         self.lowy = []
@@ -40,8 +45,12 @@ class Movement_Track:
             self.avg = (self.maxy + self.miny)/2.0
 
         if y > self.avg and self.prev < self.avg:
-            self.prev = y
-            return True
+            if (self.maxx - self.minx) > 50 \
+                    and self.maxx-self.thresh > self.width/2 \
+                    and self.minx+self.thresh < self.width/2:
+                self.prev = y
+                return True
+            return False
         else:
             self.prev = y
             return False
@@ -69,6 +78,9 @@ class Movement_Track:
                 if mask.item(y,x) == 255:
                     white_x.append(x)
                     white_y.append(y)
+        if len(white_x) > 0:
+            self.minx = min(white_x)
+            self.maxx = max(white_x)
 
         avg_y = sum(white_y) / float(len(white_y)+0.1)
         
