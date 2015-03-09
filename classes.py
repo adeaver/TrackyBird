@@ -80,7 +80,7 @@ class PipeObstacle():
         self.count = PipeObstacle.counter
         self.screenx = screenx
         self.screeny = screeny
-        self.posx = screenx + (((self.screenx)/2+60) * (self.count-1))
+        self.posx = screenx + 300 + (((self.screenx)/2+60) * (self.count-1))
         self.width = 120
         self.posy = random.randrange(screeny-300, int(screeny * (7.0/8.0)))
         self.height = screeny-self.posy
@@ -95,7 +95,7 @@ class PipeObstacle():
         screen.blit(self.reflection, (self.posx, 0))
 
     def reset(self):
-        self.posx = self.screenx + (((self.screenx)/2+60) * (self.count-1))
+        self.posx = self.screenx + 300 + (((self.screenx)/2+60) * (self.count-1))
         self.width = 120
         self.posy = random.randrange(self.screeny-300, int(self.screeny * (7.0/8.0)))
         self.height = self.screeny-self.posy

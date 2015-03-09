@@ -44,10 +44,11 @@ play = False
 exit = False
 track = True
 
-distance = 0;
+distance = -300;
 
 title_image = pygame.image.load('./images/trackylogo.gif')
 by_image = pygame.image.load('./images/bylogo.gif')
+end_game_image = pygame.image.load('./images/finalscore.gif')
 
 while play != True:
     for event in pygame.event.get():
@@ -124,10 +125,6 @@ while True:
         score_msg = font.render(str(score), 0, pygame.Color(000,000,000))
         background.blit(score_msg, (screenx/2, 48))
 
-        if(lost):
-            msg = font.render('You Lost!', 0, pygame.Color(000,000,000))
-            background.blit(msg, (screenx/3,screeny-100))
-
         screen.blit(background, (0, 0))
         pygame.display.update()
 
@@ -141,6 +138,26 @@ while True:
                 elif event.key == pygame.K_q:
                     sys.exit()
 
+        final_score = font.render(str(score), 0, pygame.Color(000, 000, 000))
+        end_game2 = font.render('Press Space to Restart, Q to quit', 0, pygame.Color(000, 000, 000))
+
+        delta_t = time.time() - update
+        update = time.time()
+
+        background.fill((0, 191, 255))
+        background.blit(grass, (0, grassy))
+
+        pipe.draw(background)
+        pipe.update(delta_t)
+        pipe2.draw(background)
+        pipe2.update(delta_t)
+
+        background.blit(end_game_image, (screenx/2-120, 10))
+        background.blit(final_score, (screenx/2, 80))
+
+        screen.blit(background, (0, 0))
+        pygame.display.update()
+
         if(lost == False):
             break
 
@@ -148,6 +165,6 @@ while True:
         pipe.reset()
         pipe2.reset()
         score = 0
-        distance = 0
+        distance = -300
         bird.reset(screenx, screeny)
         pygame.display.update()
