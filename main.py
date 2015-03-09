@@ -113,6 +113,8 @@ while True:
         bird.draw(background)
         bird.update(delta_t)
 
+        print bird.v_y
+    
         if(bird.check_loss() or bird.collision(rects)):
             lost = True
 
