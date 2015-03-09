@@ -7,8 +7,36 @@ class Bird():
     def __init__(self,screenx, screeny):
         """ Initialize a Tracky bird at the specified position
             pos_x, pos_y """
-        self.image = pygame.image.load("./images/bird.gif")
-        self.image = pygame.transform.scale(self.image, (50, 50))
+        self.up = pygame.image.load("./images/bird_up.png")
+        self.up = pygame.transform.scale(self.up, (50,50))
+
+        self.up_up = pygame.image.load("./images/bird_up.png")
+        self.up_up = pygame.transform.scale(self.up_up, (50,50))    
+        
+        self.normal = pygame.image.load("./images/bird_wing_down.png")
+        self.normal = pygame.transform.scale(self.normal, (50, 50))
+
+        self.deg10 = pygame.image.load("./images/bird_10_degrees.png")
+        self.deg10 = pygame.transform.scale(self.deg10, (50, 50))
+
+        self.deg20 = pygame.image.load("./images/bird_20_degrees.png")
+        self.deg20 = pygame.transform.scale(self.deg20, (50, 50))
+
+
+        self.deg30 = pygame.image.load("./images/bird_30_degrees.png")
+        self.deg30 = pygame.transform.scale(self.deg30, (50, 50))
+
+        self.deg60 = pygame.image.load("./images/bird_60_degrees.png")
+        self.deg60 = pygame.transform.scale(self.deg60, (50, 50))
+
+        self.deg90 = pygame.image.load("./images/bird_90_degrees.png")
+        self.deg90 = pygame.transform.scale(self.deg90, (50, 50))
+    
+        self.images = { 0:self.up, 1:self.up_up, 2:self.normal, 3:self.deg10, 4:self.deg20,
+                        5:self.deg30, 6:self.deg60, 7:self.deg90}
+
+        self.image = self.images[2]
+
         self.pos_x = screenx/2
         self.pos_y = screeny/2
         self.death_height = int(screeny * (7.0/8.0))
@@ -46,6 +74,17 @@ class Bird():
 
         self.pos_x += self.v_x*delta_t
         self.pos_y += self.v_y*delta_t
+        
+        if self.v_y < 0 and self.image is self.images[1]: 
+            self.image = self.images[0]
+        elif self.v_y < 0 and self.image is self.images[0]: 
+            self.image = self.images[1]
+        elif self.v_y < 50: self.image = self.images[2]
+        elif self.v_y < 100: self.image = self.images[3]
+        elif self.v_y < 150: self.image = self.images[4]    
+        elif self.v_y < 200: self.image = self.images[5]
+        elif self.v_y < 300: self.image = self.images[6]
+        elif self.v_y < 500: self.image = self.images[7]
 
     def check_loss(self):
         return (self.pos_y > self.death_height - 30)
