@@ -49,6 +49,8 @@ distance = -300;
 title_image = pygame.image.load('./images/trackylogo.gif')
 by_image = pygame.image.load('./images/bylogo.gif')
 end_game_image = pygame.image.load('./images/finalscore.gif')
+restart_image = pygame.image.load('./images/restart.gif')
+quit_image = pygame.image.load('./images/quit.gif')
 
 while play != True:
     for event in pygame.event.get():
@@ -155,6 +157,8 @@ while True:
 
         background.blit(end_game_image, (screenx/2-120, 10))
         background.blit(final_score, (screenx/2, 80))
+        background.blit(restart_image, (screenx/2-294, screeny-170))
+        background.blit(quit_image, (screenx/2-230, screeny-80))
 
         screen.blit(background, (0, 0))
         pygame.display.update()
