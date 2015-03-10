@@ -169,16 +169,14 @@ while True:
         background.blit(grass, (0, grassy))
     
         pipe.draw(background)
-        #pipe.update(delta_t)
         pipe2.draw(background)
-        #pipe2.update(delta_t)
         bird.draw(background)
 
-        # NEEDED so that frame rate is constant
-        tracker.Movement()
     
         if bird.pos_y < screeny - 120:
             bird.update(delta_t)
+            # NEEDED so that frame rate is constant
+            tracker.Movement()
         else:
             if tracker.Movement(): 
                 lost = False
