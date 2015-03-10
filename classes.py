@@ -1,6 +1,5 @@
 import pygame
 import random
-from math import cos, pi
 
 class Bird():
     """ Represents the player in the game (the Tracky Bird) """
@@ -55,17 +54,17 @@ class Bird():
         surface.blit(self.image, (self.pos_x, self.pos_y))
 
     def reset(self, screenx, screeny):
+        """Resets the bird to its starting position and velocity."""
         self.pos_x = screenx/2-200
         self.pos_y = screeny/2
         self.width = 50  # replace with width of sprite
         self.height = 50 # replace with height of sprite
         self.v_x = 0
         self.v_y = 0
-        self.accel = 9.8
         self.jumper = 0
 
     def update(self, delta_t):
-        """ update the flappy bird's position """
+        """Update the flappy bird's position"""
         if self.jumping:
             self.v_y = -350
             self.jumping = False            
@@ -87,9 +86,11 @@ class Bird():
         elif self.v_y < 500: self.image = self.images[7]
 
     def check_loss(self):
+        """Checks if the bird has gone too high out of the window"""
         return (self.pos_y > self.death_height - 30)
 
     def collision(self, rectangles):
+        """Checks if the bird has collided with a pipe or ground"""
         bird_rect = self.get_rect()
         for rect in rectangles:
             if rect.contains(bird_rect):
@@ -101,6 +102,7 @@ class Bird():
         return False
 
     def get_rect(self):
+        """Returns a Rectangle with the bird's position"""
         return Rectangle(self.pos_x, self.pos_y, self.width, self.height)
 
     def flap(self):
@@ -110,10 +112,11 @@ class Bird():
             self.jumping = True
 
 class PipeObstacle():
-
+    """Defines the pipe obstacles that the Tracky Bird must fly  through"""
+    
     counter = 0
-
     def __init__(self, screenx, screeny):
+        """Initializes a pipe obstacle"""
         PipeObstacle.counter += 1
         self.gap = 200
         self.count = PipeObstacle.counter
@@ -149,6 +152,7 @@ class PipeObstacle():
         self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-self.gap))
 
     def update(self, delta_t):
+        """Updates pipe position to move left in window"""
         self.posx -= (200 * delta_t)
 
         if(self.posx < -1 * self.width):
