@@ -107,7 +107,6 @@ class Bird():
 
     def flap(self):
         """ cause the bird to accelerate upwards (negative y direction) """
-        # self.v_y = -200
         if(self.pos_y > 40):
             self.jumping = True
 
@@ -138,12 +137,14 @@ class PipeObstacle():
 
 
     def draw(self, screen):
+        """Creates the pipes' sprites in the window"""
         screen.blit(self.image, (self.posx, self.posy))
         screen.blit(self.reflection, (self.posx, 0))
         screen.blit(self.top, (self.posx - self.top_width/2.0, self.posy))
         screen.blit(self.top, (self.posx - self.top_width/2.0, self.posy - self.gap - 30))
     
     def reset(self):
+        """Resets the pipe obstacle values when a new game begins"""
         self.posx = self.screenx + 300 + (((self.screenx)/2+60) * (self.count-1))
         self.width = 120
         self.posy = random.randrange(self.screeny-300, int(self.screeny * (7.0/8.0)))
@@ -163,12 +164,14 @@ class PipeObstacle():
             self.reflection = pygame.transform.scale(self.image, (self.width, self.posy-self.gap))
 
     def rect(self):
+        """Returns two rectangles initialized with values describing the two pipes"""
         return [Rectangle(self.posx, self.posy, self.width, self.height),
                 Rectangle(self.posx, 0, self.width, self.posy-200)]
 
 class Rectangle():
-
+    """Represents a sprite's location in the game"""
     def __init__(self, left, top, width, height):
+        """Initializes a Rectangle with values to describe its location and size"""
         self.top = top
         self.left = left
         self.width = width
@@ -177,6 +180,7 @@ class Rectangle():
         self.bottom = top + height
 
     def contains(self, rect):
+        """Determines if two sprites have collided"""
         if(rect.right >= self.left and rect.left <= self.left+self.width):
             if(rect.top <= self.top+self.height and rect.bottom >= self.top):
                 return True
