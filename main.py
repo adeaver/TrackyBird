@@ -50,7 +50,7 @@ title_image = pygame.image.load('./images/trackylogo.gif')
 by_image = pygame.image.load('./images/bylogo.gif')
 end_game_image = pygame.image.load('./images/finalscore.gif')
 restart_image = pygame.image.load('./images/restart.gif')
-quit_image = pygame.image.load('./images/quit.gif')
+start_image = pygame.image.load('./images/start.gif')
 
 while play != True:
     for event in pygame.event.get():
@@ -78,6 +78,7 @@ while play != True:
 
     background.blit(title_image, (screenx/2-201, 10))
     background.blit(by_image, (screenx/2-342, screeny-100))
+    background.blit(start_image, (screenx/2-183, screeny/2+28))
 
     screen.blit(background, (0, 0))
     pygame.display.update()
@@ -148,7 +149,6 @@ while True:
                     sys.exit()
 
         final_score = font.render(str(score), 0, pygame.Color(000, 000, 000))
-        end_game2 = font.render('Press Space to Restart, Q to quit', 0, pygame.Color(000, 000, 000))
 
         delta_t = time.time() - update
         update = time.time()
@@ -168,8 +168,7 @@ while True:
 
         background.blit(end_game_image, (screenx/2-120, 10))
         background.blit(final_score, (screenx/2, 80))
-        background.blit(restart_image, (screenx/2-294, screeny-170))
-        background.blit(quit_image, (screenx/2-230, screeny-80))
+        background.blit(restart_image, (screenx/2-213, screeny-60))
 
         screen.blit(background, (0, 0))
         pygame.display.update()
