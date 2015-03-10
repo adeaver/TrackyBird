@@ -6,7 +6,7 @@ tracker = Movement_Track()
 
 pygame.init()
 pygame.font.init()
-pygame.mixer.init()
+#pygame.mixer.init()
 
 #pygame.mixer.music.load("boat.wav")
 #pygame.mixer.music.play(-1)
@@ -85,6 +85,8 @@ while True:
                      bird.flap()
                 if event.key == pygame.K_q:
                     sys.exit()
+                if event.key == pygame.K_p:
+                    time.sleep(50)
             elif event.type == pygame.QUIT:
                 sys.exit()
 
