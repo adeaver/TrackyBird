@@ -45,6 +45,8 @@ play = False
 exit = False
 track = True
 
+pipe_switch = -1
+
 distance = -300;
 title_image = pygame.image.load('./images/trackylogo.gif')
 by_image = pygame.image.load('./images/bylogo.gif')
@@ -96,6 +98,8 @@ while True:
                      bird.flap()
                 if event.key == pygame.K_q:
                     sys.exit()
+
+                # For taking screen shots!
                 if event.key == pygame.K_p:
                     time.sleep(50)
             elif event.type == pygame.QUIT:
@@ -105,6 +109,7 @@ while True:
             bird.flap()
             track = False
             counter = -1
+
         #Prevents bird from flapping again for 10 frames after a flap
         if(track == False):
             counter += 1
@@ -132,12 +137,11 @@ while True:
         if(bird.check_loss() or bird.collision(rects)):
             lost = True
             pause = False
-
-        distance += delta_t * 200
-
-        if(distance > screenx/2 + 60):
-            score+=1
-            distance = 0
+        
+        if (bird.pos_x > pipe.posx+pipe.width/2 and pipe_switch == -1) \
+             or (bird.pos_x > pipe2.posx+pipe2.width/2 and pipe_switch == 1):
+            score += 1
+            pipe_switch = -pipe_switch
 
         score_msg = font.render(str(score), 0, pygame.Color(000,000,000))
         background.blit(score_msg, (screenx/2-30, 48))

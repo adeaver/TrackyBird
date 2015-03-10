@@ -37,7 +37,7 @@ class Bird():
 
         self.image = self.images[2]
 
-        self.pos_x = screenx/2
+        self.pos_x = screenx/2-200
         self.pos_y = screeny/2
         self.death_height = int(screeny * (7.0/8.0))
         self.width = 50  # replace with width of sprite
