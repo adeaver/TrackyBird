@@ -147,9 +147,6 @@ while True:
                 elif event.key == pygame.K_q:
                     sys.exit()
 
-        if tracker.Movement():
-            lost = False
-
         final_score = font.render(str(score), 0, pygame.Color(000, 000, 000))
         end_game2 = font.render('Press Space to Restart, Q to quit', 0, pygame.Color(000, 000, 000))
 
