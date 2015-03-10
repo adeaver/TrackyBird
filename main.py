@@ -60,6 +60,11 @@ while play != True:
                 pipe.reset()
                 pipe2.reset()
 
+    if tracker.Movement():
+        play = True
+        pipe.reset()
+        pipe2.reset()
+
     delta_t = time.time() - update
     update = time.time()
 
@@ -138,10 +143,12 @@ while True:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     lost = False
-                    print "Restart Pressed"
                     break
                 elif event.key == pygame.K_q:
                     sys.exit()
+
+        if tracker.Movement():
+            lost = False
 
         final_score = font.render(str(score), 0, pygame.Color(000, 000, 000))
         end_game2 = font.render('Press Space to Restart, Q to quit', 0, pygame.Color(000, 000, 000))
