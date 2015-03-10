@@ -164,26 +164,26 @@ while True:
 
         background.fill((0, 191, 255))
         background.blit(grass, (0, grassy))
-
-        if(pause):
-            if tracker.Movement(): 
-                lost = False
-                pause = 0
     
         pipe.draw(background)
         #pipe.update(delta_t)
         pipe2.draw(background)
         #pipe2.update(delta_t)
         bird.draw(background)
+
+        # NEEDED so that frame rate is constant
+        tracker.Movement()
+    
         if bird.pos_y < screeny - 120:
             bird.update(delta_t)
         else:
-            pause = True
+            if tracker.Movement(): 
+                lost = False
 
-        background.blit(high_score, (screenx/2, 200))
         background.blit(end_game_image, (screenx/2-150, 10))
         background.blit(final_score, (screenx/2-30, 80))
-        background.blit(high_score_image, (screenx/2-149, screeny/2+30))
+        background.blit(high_score_image, (screenx/2-200, screeny/2+30))
+        background.blit(high_score, (screenx/2+100, screeny/2))
         background.blit(restart_image, (screenx/2-213, screeny-60))
 
         screen.blit(background, (0, 0))
