@@ -180,15 +180,10 @@ while True:
         else:
             pause = True
 
-<<<<<<< HEAD
-        background.blit(end_game_image, (screenx/2-120, 10))
-        background.blit(final_score, (screenx/2, 80))
         background.blit(high_score, (screenx/2, 200))
-=======
         background.blit(end_game_image, (screenx/2-150, 10))
         background.blit(final_score, (screenx/2-30, 80))
         background.blit(high_score_image, (screenx/2-149, screeny/2+30))
->>>>>>> master
         background.blit(restart_image, (screenx/2-213, screeny-60))
 
         screen.blit(background, (0, 0))
