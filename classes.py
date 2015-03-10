@@ -126,13 +126,18 @@ class PipeObstacle():
         self.image = pygame.image.load('./images/pipe_body.png')
         self.image = pygame.transform.scale(self.image,
                           (self.width, self.height))
+        self.top = pygame.transform.scale(self.image, (self.width + 50, 30))
+        
         self.reflection = pygame.transform.scale(self.image,
                           (self.width, self.posy-self.gap))
+
 
     def draw(self, screen):
         screen.blit(self.image, (self.posx, self.posy))
         screen.blit(self.reflection, (self.posx, 0))
-
+        screen.blit(self.top, (self.posx - 25, self.posy))
+        screen.blit(self.top, (self.posx - 25, self.posy - self.gap))
+    
     def reset(self):
         self.posx = self.screenx + 300 + (((self.screenx)/2+60) * (self.count-1))
         self.width = 120
