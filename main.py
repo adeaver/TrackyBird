@@ -47,7 +47,6 @@ track = True
 
 pipe_switch = -1
 
-distance = -300;
 title_image = pygame.image.load('./images/trackylogo.gif')
 by_image = pygame.image.load('./images/bylogo.gif')
 end_game_image = pygame.image.load('./images/finalscore.gif')
@@ -200,6 +199,6 @@ while True:
         pipe.reset()
         pipe2.reset()
         score = 0
-        distance = -300
+        pipe_switch = -1
         bird.reset(screenx, screeny)
         pygame.display.update()
