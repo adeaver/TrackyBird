@@ -55,7 +55,7 @@ class Bird():
         surface.blit(self.image, (self.pos_x, self.pos_y))
 
     def reset(self, screenx, screeny):
-        self.pos_x = screenx/2
+        self.pos_x = screenx/2-200
         self.pos_y = screeny/2
         self.width = 50  # replace with width of sprite
         self.height = 50 # replace with height of sprite
