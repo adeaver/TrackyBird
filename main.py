@@ -152,10 +152,15 @@ while True:
         background.fill((0, 191, 255))
         background.blit(grass, (0, grassy))
 
+        if tracker.Movement(): lost = False
+    
         pipe.draw(background)
-        pipe.update(delta_t)
+        #pipe.update(delta_t)
         pipe2.draw(background)
-        pipe2.update(delta_t)
+        #pipe2.update(delta_t)
+        bird.draw(background)
+        if bird.pos_y < screeny - 120:
+            bird.update(delta_t)
 
         background.blit(end_game_image, (screenx/2-120, 10))
         background.blit(final_score, (screenx/2, 80))
