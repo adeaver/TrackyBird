@@ -1,6 +1,7 @@
 import sys, pygame, time
 import classes
 from movement_detect import *
+import anydbm
 
 tracker = Movement_Track()
 
@@ -51,6 +52,9 @@ end_game_image = pygame.image.load('./images/finalscore.gif')
 restart_image = pygame.image.load('./images/restart.gif')
 start_image = pygame.image.load('./images/start.gif')
 
+db = anydbm.open('high_score.db', 'c')
+try: db['high']
+except: db['high'] = '0'
 
 while play != True:
     for event in pygame.event.get():
@@ -147,9 +151,11 @@ while True:
                     break
                 elif event.key == pygame.K_q:
                     sys.exit()
+        if int(db['high']) < score:
+            db['high'] = str(score)
 
         final_score = font.render(str(score), 0, pygame.Color(000, 000, 000))
-        high_score = font.render("High Score: ", 0, pygame.Color(000,000,000))
+        high_score = font.render(db['high'], 0, pygame.Color(000,000,000))
 
         delta_t = time.time() - update
         update = time.time()
@@ -169,7 +175,7 @@ while True:
 
         background.blit(end_game_image, (screenx/2-120, 10))
         background.blit(final_score, (screenx/2, 80))
-        background.blit(high_score, (screenx/2, 120))
+        background.blit(high_score, (screenx/2, 200))
         background.blit(restart_image, (screenx/2-213, screeny-60))
 
         screen.blit(background, (0, 0))
