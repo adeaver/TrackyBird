@@ -44,13 +44,14 @@ play = False
 exit = False
 track = True
 
-distance = -300;
+distance = -300
 
 title_image = pygame.image.load('./images/trackylogo.gif')
 by_image = pygame.image.load('./images/bylogo.gif')
 end_game_image = pygame.image.load('./images/finalscore.gif')
 restart_image = pygame.image.load('./images/restart.gif')
 start_image = pygame.image.load('./images/start.gif')
+high_score_image = pygame.image.load('./images/highscore.png')
 
 while play != True:
     for event in pygame.event.get():
@@ -126,6 +127,7 @@ while True:
     
         if(bird.check_loss() or bird.collision(rects)):
             lost = True
+            pause = False
 
         distance += delta_t * 200
 
@@ -134,7 +136,7 @@ while True:
             distance = 0
 
         score_msg = font.render(str(score), 0, pygame.Color(000,000,000))
-        background.blit(score_msg, (screenx/2, 48))
+        background.blit(score_msg, (screenx/2-30, 48))
 
         screen.blit(background, (0, 0))
         pygame.display.update()
@@ -156,7 +158,10 @@ while True:
         background.fill((0, 191, 255))
         background.blit(grass, (0, grassy))
 
-        if tracker.Movement(): lost = False
+        if(pause):
+            if tracker.Movement(): 
+                lost = False
+                pause = 0
     
         pipe.draw(background)
         #pipe.update(delta_t)
@@ -165,9 +170,12 @@ while True:
         bird.draw(background)
         if bird.pos_y < screeny - 120:
             bird.update(delta_t)
+        else:
+            pause = True
 
-        background.blit(end_game_image, (screenx/2-120, 10))
-        background.blit(final_score, (screenx/2, 80))
+        background.blit(end_game_image, (screenx/2-150, 10))
+        background.blit(final_score, (screenx/2-30, 80))
+        background.blit(high_score_image, (screenx/2-149, screeny/2+30))
         background.blit(restart_image, (screenx/2-213, screeny-60))
 
         screen.blit(background, (0, 0))
