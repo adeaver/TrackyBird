@@ -2,29 +2,32 @@ import cv2
 import numpy as np
 
 class Movement_Track:
-    def __init__(self,color=(0,0,255),video=0):
+    def __init__(self,video=0):
         self.cap = cv2.VideoCapture(video)
+
+        # Values for cleaning up motion tracking
         self.boundaries = [ ([50,30,30], [145,133,128]) ]
-        self.starter = 0
-        self.frame_old = []
-        self.color = color
+   
+        #self.starter = 0 
+        #self.frame_old = []
+        self.color = (0,0,0)
         self.prev = 0 # previous y position
 
-        ret, frame = self.cap.read()
-        frame = cv2.pyrDown(frame)
+        ret, self.frame_old = self.cap.read()
+        frame = cv2.pyrDown(self.frame_old)
         self.height = frame.shape[0]
         self.width = frame.shape[1]
         self.thresh = 50
 
-        self.maxy = self.height/2.0 # maximum y value reached
-        self.miny = self.height/2.0 # minimum y value reached
+        # Initializing these at respective values
+        # to allow for centering around motion centers
+        # of the user
+        self.maxy = 0 # maximum y value reached
+        self.miny = self.height # minimum y value reached
         self.avg = self.height/2.0 # Initial average value
 
         self.maxx = 0
         self.minx = 0
-
-        self.highy = []
-        self.lowy = []
 
     def Get_Color(self):
         ret, frame = self.cap.read()
@@ -57,11 +60,6 @@ class Movement_Track:
 
     def Get_Move(self):
         ret, frame = self.cap.read()
-
-        if self.starter == 0:
-            self.frame_old = frame
-            self.starter = 1
-            return 0
 
         diff_np = frame - self.frame_old
 
